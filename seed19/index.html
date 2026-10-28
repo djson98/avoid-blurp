@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avoid Blurp! · Seed 19 · 180초 완주</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b131d;color:#f1f6fa;font-family:system-ui,sans-serif}main{max-width:1050px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;align-items:center;gap:16px}h1{font-size:clamp(24px,4vw,40px);margin:12px 0 6px}p{color:#a5b6c8;line-height:1.6}a{color:#8eddbb}.badge{font-size:13px;letter-spacing:2px;color:#8eddbb}.player{background:#05090e;border:1px solid #284056;border-radius:14px;overflow:hidden;margin-top:20px}video{display:block;width:100%;height:min(74dvh,920px);object-fit:contain;background:#05090e}nav{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:15px}button,select,input{font:inherit}button,select{background:#182939;color:white;border:1px solid #35506a;border-radius:7px;padding:8px 11px;cursor:pointer}button:hover{border-color:#8eddbb}input{background:#111d2a;color:white;border:1px solid #35506a;border-radius:7px;padding:8px;width:75px}.note{font-size:13px}#time{color:#8eddbb;font-variant-numeric:tabular-nums;margin-left:auto}@media(max-width:600px){main{padding:14px}header{align-items:start;flex-direction:column;gap:0}nav{padding:10px;gap:7px}#time{margin-left:0}}
+</style>
+<main>
+<header><div><div class="badge">SEED 19 · 180s CLEAR</div><h1>Avoid Blurp!</h1></div><a href="../">완주 10판 모아 보기 ↗</a></header>
+<p>V5 Deep Sets + MCTS 64 · 시드 19에서 180초 완주</p>
+<div class="player"><video id="video" controls playsinline preload="metadata" poster="poster.png" src="seed19.mp4"></video>
+<nav aria-label="재생 설정">
+<button id="back" aria-label="10초 뒤로">−10초</button><button id="forward" aria-label="10초 앞으로">+10초</button>
+<label>배속 <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+<label>이동 <input id="seek" type="number" min="0" max="180" value="150" aria-label="이동할 게임 시간(초)">초</label><button id="go">이동</button>
+<output id="time" aria-live="off">0:00 / 3:00</output>
+</nav></div>
+<p class="note">재생 막대를 드래그하면 원하는 시간으로 이동합니다. 전체화면과 음량은 플레이어에서 조절할 수 있어요.<br>대회 결과: 시드 19 · 180초 완주 · 1위. 이 영상은 대회 후 같은 모델·시드로 재실행한 상태·행동 로그를 재생한 것입니다. 모든 2,701개 상태를 대조했으며, 마지막 완주 화면을 2초 유지합니다.</p>
+<p><a href="seed19.mp4" download>영상 다운로드</a></p>
+</main>
+<script>
+const v=document.getElementById('video'), stamp=document.getElementById('time');
+function seek(t){if(Number.isFinite(t))v.currentTime=Math.max(0,Math.min(180,t));}
+document.getElementById('back').onclick=()=>seek(v.currentTime-10);
+document.getElementById('forward').onclick=()=>seek(v.currentTime+10);
+document.getElementById('go').onclick=()=>seek(Number(document.getElementById('seek').value));
+document.getElementById('seek').onkeydown=e=>{if(e.key==='Enter')document.getElementById('go').click()};
+document.getElementById('speed').onchange=e=>v.playbackRate=Number(e.target.value);
+v.ontimeupdate=()=>{let t=Math.min(180,Math.floor(v.currentTime));stamp.textContent=`${Math.floor(t/60)}:${String(t%60).padStart(2,'0')} / 3:00`;};
+v.onerror=()=>stamp.textContent='영상을 불러오지 못했습니다. 새로고침해 주세요.';
+</script>
+</html>

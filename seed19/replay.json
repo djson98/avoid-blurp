@@ -1,0 +1,15 @@
+{
+  "seed": 19,
+  "seconds": 180.00000000003539,
+  "result": "cleared",
+  "actions": 2700,
+  "verified_observations": 2701,
+  "fps": 15,
+  "video_seconds": 182,
+  "resolution": [
+    480,
+    740
+  ],
+  "note": "Replay of a new seed-19 run; not a screen recording of the competition.",
+  "bytes": 9781522
+}
